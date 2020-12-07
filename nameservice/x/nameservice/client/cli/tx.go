@@ -6,13 +6,14 @@ import (
 	"github.com/spf13/cobra"
 
 	"github.com/cosmos/cosmos-sdk/client"
-	// "github.com/cosmos/cosmos-sdk/client/flags"
+	"github.com/cosmos/cosmos-sdk/client/flags"
+	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/leonvanderhaeghen/nameservice/x/nameservice/types"
 )
 
 // GetTxCmd returns the transaction commands for this module
-func GetTxCmd() *cobra.Command {
-	cmd := &cobra.Command{
+func GetTxCmd(cdc *codec.Codec) *cobra.Command {
+	nameserviceTxCmd := &cobra.Command{
 		Use:                        types.ModuleName,
 		Short:                      fmt.Sprintf("%s transactions subcommands", types.ModuleName),
 		DisableFlagParsing:         true,
@@ -20,17 +21,9 @@ func GetTxCmd() *cobra.Command {
 		RunE:                       client.ValidateCmd,
 	}
 
+	nameserviceTxCmd.AddCommand(flags.PostCommands(
     // this line is used by starport scaffolding # 1
+	)...)
 
-	cmd.AddCommand(CmdCreateWhois())
-	cmd.AddCommand(CmdUpdateWhois())
-	cmd.AddCommand(CmdDeleteWhois())
-
-
-	cmd.AddCommand(CmdCreateName())
-	cmd.AddCommand(CmdUpdateName())
-	cmd.AddCommand(CmdDeleteName())
-
-
-	return cmd 
+	return nameserviceTxCmd
 }

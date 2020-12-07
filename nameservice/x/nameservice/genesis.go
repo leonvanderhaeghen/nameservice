@@ -4,14 +4,19 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/leonvanderhaeghen/nameservice/x/nameservice/keeper"
 	"github.com/leonvanderhaeghen/nameservice/x/nameservice/types"
+	// abci "github.com/tendermint/tendermint/abci/types"
 )
 
-// InitGenesis initializes the capability module's state from a provided genesis
-// state.
-func InitGenesis(ctx sdk.Context, k keeper.Keeper, genState types.GenesisState) {
+// InitGenesis initialize default parameters
+// and the keeper's address to pubkey map
+func InitGenesis(ctx sdk.Context, k keeper.Keeper /* TODO: Define what keepers the module needs */, data types.GenesisState) {
+	// TODO: Define logic for when you would like to initalize a new genesis
 }
 
-// ExportGenesis returns the capability module's exported genesis.
-func ExportGenesis(ctx sdk.Context, k keeper.Keeper) *types.GenesisState {
-	return types.DefaultGenesis()
+// ExportGenesis writes the current store values
+// to a genesis file, which can be imported again
+// with InitGenesis
+func ExportGenesis(ctx sdk.Context, k keeper.Keeper) (data types.GenesisState) {
+	// TODO: Define logic for exporting state
+	return types.NewGenesisState()
 }
