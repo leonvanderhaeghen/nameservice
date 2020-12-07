@@ -1,0 +1,63 @@
+syntax = "proto3";
+package nameservice.nameservice;
+
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+// this line is used by starport scaffolding # 1
+import "nameservice/whois.proto";
+import "nameservice/name.proto";
+
+option go_package = "github.com/leonvanderhaeghen/nameservice/x/nameservice/types";
+
+// Query defines the gRPC querier service.
+service Query {
+    // this line is used by starport scaffolding # 2
+	rpc Whois(QueryGetWhoisRequest) returns (QueryGetWhoisResponse) {
+		option (google.api.http).get = "/leonvanderhaeghen/nameservice/nameservice/whois/{id}";
+	}
+	rpc WhoisAll(QueryAllWhoisRequest) returns (QueryAllWhoisResponse) {
+		option (google.api.http).get = "/leonvanderhaeghen/nameservice/nameservice/whois";
+	}
+
+	rpc Name(QueryGetNameRequest) returns (QueryGetNameResponse) {
+		option (google.api.http).get = "/leonvanderhaeghen/nameservice/nameservice/names/{id}";
+	}
+	rpc NameAll(QueryAllNameRequest) returns (QueryAllNameResponse) {
+		option (google.api.http).get = "/leonvanderhaeghen/nameservice/nameservice/names";
+	}
+
+}
+
+// this line is used by starport scaffolding # 3
+message QueryGetWhoisRequest {
+	string id = 1;
+}
+
+message QueryGetWhoisResponse {
+	Whois Whois = 1;
+}
+
+message QueryAllWhoisRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllWhoisResponse {
+	repeated Whois Whois = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+message QueryGetNameRequest {
+	string id = 1;
+}
+
+message QueryGetNameResponse {
+	Name Name = 1;
+}
+
+message QueryAllNameRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllNameResponse {
+	repeated Name Name = 1;
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}

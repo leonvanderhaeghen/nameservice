@@ -1,0 +1,31 @@
+syntax = "proto3";
+package nameservice.nameservice;
+
+option go_package = "github.com/leonvanderhaeghen/nameservice/x/nameservice/types";
+
+import "gogoproto/gogo.proto";
+
+message Name {
+  string id = 1;
+  bytes creator = 2 [(gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.AccAddress"];
+  string value = 3; 
+  string price = 4; 
+}
+
+message MsgCreateName {
+  bytes creator = 1 [(gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.AccAddress"];
+  string value = 2; 
+  string price = 3; 
+}
+
+message MsgUpdateName {
+  string id = 1;
+  bytes creator = 2 [(gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.AccAddress"];
+  string value = 3; 
+  string price = 4; 
+}
+
+message MsgDeleteName {
+  string id = 1;
+  bytes creator = 2 [(gogoproto.casttype) = "github.com/cosmos/cosmos-sdk/types.AccAddress"];
+}
