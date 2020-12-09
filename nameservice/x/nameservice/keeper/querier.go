@@ -19,6 +19,8 @@ func NewQuerier(k Keeper) sdk.Querier {
 			return listName(ctx, k)
 		case types.QueryGetName:
 			return getName(ctx, path[1:], k)
+		case types.QueryResolveName:
+			return resolveName(ctx,path[1:],k)
 		default:
 			return nil, sdkerrors.Wrap(sdkerrors.ErrUnknownRequest, "unknown nameservice query endpoint")
 		}
