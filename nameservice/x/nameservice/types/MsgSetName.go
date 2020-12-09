@@ -8,18 +8,16 @@ import (
 var _ sdk.Msg = &MsgSetName{}
 
 type MsgSetName struct {
-  ID      string      `json:"id" yaml:"id"`
-  Owner sdk.AccAddress `json:"owner" yaml:"owner"`
-  Value string `json:"value" yaml:"value"`
-  Price sdk.Coins `json:"price" yaml:"price"`
+  Name      string      `json:"name"`
+  Owner sdk.AccAddress `json:"owner"`
+  Value string `json:"value"`
 }
 
-func NewMsgSetName(owner sdk.AccAddress, id string, value string, price sdk.Coins) MsgSetName {
+func NewMsgSetName(name string, value string, owner sdk.AccAddress) MsgSetName {
   return MsgSetName{
-    ID: id,
+	Name: name,	
+	Value: value,
 	Owner: owner,
-    Value: value,
-    Price: price,
 	}
 }
 
@@ -28,7 +26,7 @@ func (msg MsgSetName) Route() string {
 }
 
 func (msg MsgSetName) Type() string {
-  return "SetName"
+  return "set_name"
 }
 
 func (msg MsgSetName) GetSigners() []sdk.AccAddress {
@@ -43,6 +41,9 @@ func (msg MsgSetName) GetSignBytes() []byte {
 func (msg MsgSetName) ValidateBasic() error {
   if msg.Owner.Empty() {
     return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, "creator can't be empty")
+  }
+  if len(msg.Name) == 0 || len(msg.Value) == 0 {
+	  return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest,"Name and or value can not be empty")
   }
   return nil
 }

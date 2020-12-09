@@ -117,7 +117,7 @@ func (k Keeper) ResolveName(ctx sdk.Context, nameS string) string {
 
 
 // SetName - sets the value string that a name resolves to
-func (k Keeper) SetNameName(ctx sdk.Context, nameS string, value string) {
+func (k Keeper) SetNameString(ctx sdk.Context, nameS string, value string) {
 	name, _ := k.GetName(ctx, nameS)
 	name.Value = value
 	k.SetName(ctx, nameS, name)
